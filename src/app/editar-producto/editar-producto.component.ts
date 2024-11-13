@@ -10,7 +10,6 @@ import { error } from 'console';
   templateUrl: './editar-producto.component.html',
 })
 export class EditarProductoComponent {
-
   producto: Producto = new Producto();
   id: number;
 
@@ -32,8 +31,18 @@ export class EditarProductoComponent {
     });
   }
 
-
   onSubmit() {
-    //editar producto
+    this.guardarProducto();
+  }
+
+  guardarProducto() {
+    this.productoServicio.editarProducto(this.id, this.producto).subscribe({
+      next: (datos) => this.irProductoLista(),
+      error: (errores) => console.log(errores),
+    });
+  }
+
+  irProductoLista() {
+    this.enrutador.navigate(['/productos']);
   }
 }
